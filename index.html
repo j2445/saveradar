@@ -1,0 +1,2278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Save Radar - Best Deals</title>
+    <!-- Add favicon -->
+    <link rel="icon" href="https://i.ibb.co/chFtFfCN/logo-new.png" type="image/png">
+    <link rel="shortcut icon" href="https://i.ibb.co/chFtFfCN/logo-new.png" type="image/png">
+    <link rel="apple-touch-icon" href="https://i.ibb.co/chFtFfCN/logo-new.png">
+    <link rel="manifest" href="https://i.ibb.co/xqjGj9f/site.webmanifest">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Header styles with mobile adjustments */
+        header {
+            background: linear-gradient(135deg, #232f3e, #37475a);
+            color: white;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 0.5rem 1rem;
+            transition: all 0.3s ease;
+            background: linear-gradient(45deg, #FFD814, #FFA41C);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        /* Move search container below header */
+        .search-section {
+            background: #f5f5f5;
+            padding: 1rem;
+            position: sticky;
+            top: 70px;
+            z-index: 99;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .search-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 1rem;
+            padding: 0 1rem;
+        }
+
+        /* Deals grid responsive styles */
+        .deals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 1rem;
+        }
+
+        /* Deal card responsive styles */
+        .deal-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        .deal-image {
+            width: 100%;
+            height: 200px;
+            object-fit: contain;
+            background: #f8f8f8;
+            padding: 0.5rem;
+        }
+
+        .deal-info {
+            padding: 1rem;
+        }
+
+        .deal-title {
+            font-size: 1rem;
+            margin-bottom: 0.8rem;
+            color: #232f3e;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            height: 2.4em;
+        }
+
+        .price-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.8rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .sale-price {
+            font-size: 1.3rem;
+            color: #B12704;
+            font-weight: bold;
+        }
+
+        .original-price {
+            text-decoration: line-through;
+            color: #565959;
+            font-size: 0.9rem;
+        }
+
+        .savings {
+            color: #067D62;
+            font-weight: bold;
+            font-size: 0.9rem;
+            width: 100%;
+        }
+
+        .deal-button {
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: #232f3e;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            width: 100%;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        .deal-button:hover {
+            background-color: #dc3545;
+            transform: translateY(-2px);
+            box-shadow: 0 2px 8px rgba(220, 53, 69, 0.3);
+        }
+
+        /* Responsive breakpoints */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            .search-section {
+                top: 60px;
+            }
+
+            .search-container {
+                flex-direction: column;
+            }
+
+            h1 {
+                font-size: 2rem;
+                margin-bottom: 0.5rem;
+            }
+
+            main {
+                margin-top: 0.5rem;
+            }
+
+            .deals-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 0.8rem;
+            }
+
+            .deal-image {
+                height: 150px;
+            }
+
+            .deal-info {
+                padding: 0.8rem;
+            }
+
+            .deal-title {
+                font-size: 0.9rem;
+                height: 2.7em;
+            }
+
+            .sale-price {
+                font-size: 1.1rem;
+            }
+
+            .original-price, .savings {
+                font-size: 0.8rem;
+            }
+
+            .deal-button {
+                padding: 0.6rem;
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .search-container {
+                padding: 0 0.5rem;
+            }
+
+            .deals-grid {
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+                gap: 0.6rem;
+            }
+
+            .deal-image {
+                height: 120px;
+            }
+
+            .deal-info {
+                padding: 0.6rem;
+            }
+        }
+
+        /* Animation keyframes remain the same */
+        @keyframes slideDown {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Style for the new category dropdown */
+        .category-select {
+            padding: 0.8rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            background: white;
+            cursor: pointer;
+            width: 200px; /* Fixed width for category dropdown */
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .category-select:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .category-select option {
+            padding: 0.5rem;
+        }
+
+        /* Remove old category menu styles */
+        .category-menu {
+            display: none;
+        }
+
+        /* Adjust main content margin */
+        main {
+            margin-top: 0;
+            padding-top: 1rem;
+        }
+
+        /* Add preloader styles */
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: opacity 0.5s ease-out;
+        }
+
+        .preloader.fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loader {
+            width: 48px;
+            height: 48px;
+            border: 5px solid #232f3e;
+            border-bottom-color: #FFD814;
+            border-radius: 50%;
+            display: inline-block;
+            box-sizing: border-box;
+            animation: rotation 1s linear infinite;
+        }
+
+        @keyframes rotation {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Hide main content initially */
+        #mainContent {
+            opacity: 0;
+            transition: opacity 0.5s ease-out;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #mainContent.visible {
+            opacity: 1;
+        }
+
+        /* Add footer styles */
+        .footer {
+            background: linear-gradient(135deg, #232f3e, #37475a);
+            color: white;
+            padding: 3rem 1rem;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            padding: 0 1rem;
+        }
+
+        .footer-section {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .footer-section h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background: #FFD814;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-links a:hover {
+            color: #FFD814;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            background: rgba(255, 255, 255, 0.1);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: #FFD814;
+            color: #232f3e;
+            transform: translateY(-3px);
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
+
+        .newsletter-button {
+            padding: 0.8rem 1.5rem;
+            background: #FFD814;
+            border: none;
+            border-radius: 5px;
+            color: #232f3e;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .newsletter-button:hover {
+            background: #f7ca00;
+            transform: translateY(-2px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        @media (max-width: 768px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-section h3::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+        }
+
+        /* Style for search input to take remaining space */
+        #searchInput {
+            flex: 1;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .search-container {
+                flex-direction: column;
+            }
+
+            .category-select {
+                width: 100%; /* Full width on mobile */
+            }
+        }
+
+        /* Updated pagination styles */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 2rem 0;
+            padding: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .pagination button {
+            min-width: 40px;
+            height: 40px;
+            border: none;
+            border-radius: 8px;
+            background: white;
+            color: #232f3e;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .pagination button.nav-btn {
+            padding: 0 1rem;
+            min-width: auto;
+        }
+
+        .pagination button:hover:not(:disabled) {
+            background: #f5f5f5;
+            transform: translateY(-2px);
+        }
+
+        .pagination button.active {
+            background: #FFD814;
+            font-weight: bold;
+        }
+
+        .pagination button:disabled {
+            background: #f0f0f0;
+            color: #999;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .pagination .pages {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .pagination .ellipsis {
+            color: #666;
+            margin: 0 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .pagination {
+                gap: 0.3rem;
+            }
+
+            .pagination button {
+                min-width: 35px;
+                height: 35px;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Remove social-links styles */
+        .social-links,
+        .social-links a,
+        .social-links a:hover,
+        .social-links svg {
+            display: none;
+        }
+        
+        /* Keep only instagram-btn styles */
+        .instagram-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: #fff;
+            color: #232f3e;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+            float: left;  /* Add this to align button to the left */
+            clear: both;  /* Ensures proper alignment */
+        }
+
+        .instagram-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .instagram-btn svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .category-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: rgba(35, 47, 62, 0.9);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            z-index: 1;
+            white-space: nowrap;
+            backdrop-filter: blur(4px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .timestamp-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: rgba(35, 47, 62, 0.9);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            z-index: 1;
+            white-space: nowrap;
+            backdrop-filter: blur(4px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            animation: blink 2s infinite;
+        }
+
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0.6; }
+            100% { opacity: 1; }
+        }
+
+        /* Make 'New' timestamps blink faster and with different color */
+        .timestamp-badge[data-time="New"] {
+            background-color: rgba(220, 53, 69, 0.9);
+            animation: blinkNew 1s infinite;
+        }
+
+        @keyframes blinkNew {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+
+        /* Remove footer categories styles */
+        .footer-categories,
+        .footer-categories a,
+        .footer-categories a:hover {
+            display: none;
+        }
+
+        .footer-categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .footer-categories a {
+            color: #fff;
+            text-decoration: none;
+            padding: 4px 8px;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .footer-categories a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Add preloader -->
+    <div class="preloader" id="preloader">
+        <span class="loader"></span>
+    </div>
+
+    <!-- Wrap existing content in main content div -->
+    <div id="mainContent">
+        <header>
+            <div class="header-content">
+                <a href="/" class="logo">Save Radar</a>
+            </div>
+        </header>
+
+        <div class="search-section">
+            <div class="search-container">
+                <select class="category-select" id="categoryFilter">
+                    <option value="">All Categories</option>
+                    <option value="Men">Men</option>
+                    <option value="Women">Women</option>
+                    <option value="Kids">Kids</option>
+                    <option value="Electronic">Electronics</option>
+                    <option value="Shoes">Shoes</option>
+                    <option value="Furniture">Furniture</option>
+                    <option value="Beauty care">Beauty Care</option>
+                    <option value="Groceries">Groceries</option>
+                    <option value="Kitchenware">Kitchenware</option>
+                    <option value="Bedding">Bedding</option>
+                    <option value="Toys">Toys</option>
+                    <option value="Equipment">Equipment</option>
+                    <option value="Game">Game</option>
+                    <option value="Office Supplies">Office Supplies</option>
+                </select>
+                <input type="text" id="searchInput" placeholder="Search deals...">
+            </div>
+        </div>
+
+        <main>
+            <div class="deals-grid" id="dealsContainer">
+                <!-- Deals will be populated here -->
+            </div>
+        </main>
+
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About Save Radar</h3>
+                    <p>Your ultimate destination for the best deals and savings across Amazon. We help you find amazing discounts on products you love.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Today's Deals</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Best Sellers</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> New Arrivals</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Deal Alerts</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Categories</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Electronics</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Fashion</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Home & Kitchen</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Beauty & Personal Care</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to get special offers, free giveaways, and amazing deals.</p>
+                    <form class="newsletter-form">
+                        <input type="email" class="newsletter-input" placeholder="Enter your email">
+                        <button type="submit" class="newsletter-button">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                    <a href="https://www.instagram.com/save_radar/" target="_blank" rel="noopener noreferrer" class="instagram-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                        </svg>
+                        Follow us
+                    </a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Save Radar. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        const ITEMS_PER_PAGE = 40;
+        let currentPage = 1;
+        let paginationContainer = null;
+        let isLoading = false;
+        
+        function getRelativeTime(timestamp) {
+            const now = new Date().getTime();
+            const time = new Date(timestamp).getTime();
+            const diff = now - time;
+            
+            // Convert milliseconds to minutes/hours
+            const minutes = Math.floor(diff / (1000 * 60));
+            const hours = Math.floor(diff / (1000 * 60 * 60));
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            
+            if (minutes < 1) return 'New';
+            if (minutes < 60) return `${minutes}m ago`;
+            if (hours < 24) return `${hours}h ago`;
+            if (days === 1) return 'Yesterday';
+            return `${days}d ago`;
+        }
+
+        function displayDeals(deals) {
+            if (isLoading) return;
+            isLoading = true;
+            
+            const container = document.getElementById('dealsContainer');
+            showPreloader();
+            
+            // Calculate pagination with 40 items per page
+            const totalPages = Math.ceil(deals.length / ITEMS_PER_PAGE);
+            const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+            const endIndex = Math.min(startIndex + ITEMS_PER_PAGE, deals.length);
+            const currentDeals = deals.slice(startIndex, endIndex);
+            
+            // Clear container after preloader shows
+            container.innerHTML = '';
+            
+            // Simulate network delay and content loading
+            setTimeout(() => {
+                // Start loading images
+                const imagePromises = currentDeals.map(deal => {
+                    return new Promise((resolve) => {
+                        const img = new Image();
+                        img.onload = () => resolve();
+                        img.onerror = () => resolve(); // Handle failed loads
+                        img.src = deal.image;
+                    });
+                });
+
+                // Wait for images to load
+                Promise.all(imagePromises).then(() => {
+                    renderDeals(currentDeals, container);
+                    hidePreloader();
+                    isLoading = false;
+                });
+            }, 500);
+
+            // Create or update pagination
+            if (!paginationContainer) {
+                createPagination(deals.length, totalPages);
+            } else {
+                updatePagination(totalPages);
+            }
+        }
+
+        function renderDeals(deals, container) {
+            deals.forEach((deal, index) => {
+                const card = document.createElement('div');
+                card.className = 'deal-card';
+                card.style.animationDelay = `${index * 0.1}s`;
+                
+                const timeString = getRelativeTime(deal.timestamp);
+                card.innerHTML = `
+                    <div class="category-badge">${deal.Category || 'Uncategorized'}</div>
+                    <div class="timestamp-badge" data-time="${timeString}">${timeString}</div>
+                    <img src="${deal.image}" alt="${deal.title}" class="deal-image" loading="lazy">
+                    <div class="deal-info">
+                        <h2 class="deal-title">${deal.title}</h2>
+                        <div class="price-info">
+                            <span class="sale-price">$${deal.salePrice}</span>
+                            <span class="original-price">$${deal.originalPrice}</span>
+                        </div>
+                        <div class="savings">
+                            Save ${deal.percentOff}% ($${deal.dollarSavings})
+                        </div>
+                        <a href="${deal.link}" target="_blank" class="deal-button">
+                            View Deal
+                        </a>
+                    </div>
+                `;
+                
+                container.appendChild(card);
+            });
+        }
+
+        function showPreloader() {
+            const preloader = document.getElementById('preloader');
+            preloader.style.display = 'flex';
+            preloader.classList.remove('fade-out');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function hidePreloader() {
+            const preloader = document.getElementById('preloader');
+            preloader.classList.add('fade-out');
+            setTimeout(() => {
+                preloader.style.display = 'none';
+                document.body.style.overflow = '';
+            }, 500);
+        }
+
+        function createPagination(totalItems, totalPages) {
+            paginationContainer = document.createElement('div');
+            paginationContainer.className = 'pagination';
+            
+            // Previous button
+            const prevButton = document.createElement('button');
+            prevButton.innerHTML = '&laquo;';
+            prevButton.className = 'nav-btn prev-btn';
+            prevButton.disabled = currentPage === 1;
+            prevButton.addEventListener('click', () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    filterDeals();
+                    scrollToTop();
+                }
+            });
+            
+            // Next button
+            const nextButton = document.createElement('button');
+            nextButton.innerHTML = '&raquo;';
+            nextButton.className = 'nav-btn next-btn';
+            nextButton.disabled = currentPage === totalPages;
+            nextButton.addEventListener('click', () => {
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    filterDeals();
+                    scrollToTop();
+                }
+            });
+            
+            const pageNumbers = document.createElement('div');
+            pageNumbers.className = 'pages';
+            
+            updatePageNumbers(pageNumbers, totalPages);
+            
+            paginationContainer.appendChild(prevButton);
+            paginationContainer.appendChild(pageNumbers);
+            paginationContainer.appendChild(nextButton);
+            
+            const dealsContainer = document.getElementById('dealsContainer');
+            dealsContainer.parentNode.insertBefore(paginationContainer, dealsContainer.nextSibling);
+        }
+
+        function updatePagination(totalPages) {
+            if (!paginationContainer) return;
+
+            const prevButton = paginationContainer.querySelector('.prev-btn');
+            const nextButton = paginationContainer.querySelector('.next-btn');
+            const pageNumbers = paginationContainer.querySelector('.pages');
+
+            prevButton.disabled = currentPage === 1;
+            nextButton.disabled = currentPage === totalPages;
+
+            // Update page numbers
+            updatePageNumbers(pageNumbers, totalPages);
+        }
+
+        function updatePageNumbers(pageNumbers, totalPages) {
+            pageNumbers.innerHTML = '';
+            
+            let startPage = Math.max(1, currentPage - 2);
+            let endPage = Math.min(totalPages, currentPage + 2);
+
+            if (currentPage <= 3) {
+                endPage = Math.min(5, totalPages);
+            }
+            if (currentPage >= totalPages - 2) {
+                startPage = Math.max(1, totalPages - 4);
+            }
+
+            // First page
+            if (startPage > 1) {
+                pageNumbers.appendChild(createPageButton(1));
+                if (startPage > 2) {
+                    const ellipsis = document.createElement('span');
+                    ellipsis.className = 'ellipsis';
+                    ellipsis.textContent = '...';
+                    pageNumbers.appendChild(ellipsis);
+                }
+            }
+
+            // Page numbers
+            for (let i = startPage; i <= endPage; i++) {
+                pageNumbers.appendChild(createPageButton(i));
+            }
+
+            // Last page
+            if (endPage < totalPages) {
+                if (endPage < totalPages - 1) {
+                    const ellipsis = document.createElement('span');
+                    ellipsis.className = 'ellipsis';
+                    ellipsis.textContent = '...';
+                    pageNumbers.appendChild(ellipsis);
+                }
+                pageNumbers.appendChild(createPageButton(totalPages));
+            }
+        }
+
+        function createPageButton(pageNum) {
+            const button = document.createElement('button');
+            button.textContent = pageNum;
+            button.classList.toggle('active', pageNum === currentPage);
+            button.addEventListener('click', () => {
+                if (pageNum !== currentPage) {
+                    currentPage = pageNum;
+                    filterDeals();
+                    scrollToTop();
+                }
+            });
+            return button;
+        }
+
+        // Add scroll to top function
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Initialize the page
+        window.addEventListener('load', () => {
+            showPreloader();
+            document.getElementById('mainContent').classList.add('visible');
+            filterDeals();
+        });
+
+        let allDeals = [
+            // Adding new deals at the start of the array
+            {
+                Category: 'Electronic',
+                Retailer: 'Amazon',
+                title: 'Samsung Galaxy S24 Magnetic Case with Protector',
+                salePrice: '5.00',
+                originalPrice: '10.00',
+                dollarSavings: '5.00',
+                percentOff: '50',
+                image: 'https://slickdeals.net/attachment/1/8/2/3/4/5/1/7/200x200/17026966.thumb',
+                link: 'https://amzn.to/4jWMcnl',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Electronic',
+                Retailer: 'Amazon',
+                title: 'Apple MacBook Pro Laptop',
+                salePrice: '1589.00',
+                originalPrice: '1799.00',
+                dollarSavings: '210.00',
+                percentOff: '12',
+                image: 'https://slickdeals.net/attachment/1/8/2/3/4/5/1/7/200x200/17026885.thumb',
+                link: 'https://amzn.to/42L3Wff',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Game',
+                Retailer: 'Amazon',
+                title: 'Mattel The Game of Things',
+                salePrice: '7.59',
+                originalPrice: '18.26',
+                dollarSavings: '10.67',
+                percentOff: '58',
+                image: 'https://m.media-amazon.com/images/I/416412NgXhL._SL500_.jpg',
+                link: 'https://amzn.to/4hpDNa4',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Furniture',
+                Retailer: 'Amazon',
+                title: 'Lenox Bayberry Dessert Set',
+                salePrice: '52.99',
+                originalPrice: '113.57',
+                dollarSavings: '60.58',
+                percentOff: '53',
+                image: 'https://m.media-amazon.com/images/I/41apAVh38cL._SL500_.jpg',
+                link: 'https://amzn.to/3WRux6C',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Kids',
+                Retailer: 'Amazon',
+                title: 'Little Live Pets Kitty Home',
+                salePrice: '13.49',
+                originalPrice: '29.05',
+                dollarSavings: '15.56',
+                percentOff: '54',
+                image: 'https://m.media-amazon.com/images/I/31-v5kw+3WL._SL500_.jpg',
+                link: 'https://amzn.to/4hs3rLf',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Kids',
+                Retailer: 'Amazon',
+                title: 'Little Live Pets Interactive Puppy',
+                salePrice: '23.99',
+                originalPrice: '46.56',
+                dollarSavings: '22.57',
+                percentOff: '48',
+                image: 'https://m.media-amazon.com/images/I/41m2QHedCiL._SL500_.jpg',
+                link: 'https://amzn.to/4jRxeyU',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Office Supplies',
+                Retailer: 'Amazon',
+                title: 'Pentel EnerGel Retractable Pens',
+                salePrice: '4.49',
+                originalPrice: '9.75',
+                dollarSavings: '5.26',
+                percentOff: '54',
+                image: 'https://m.media-amazon.com/images/I/41q90ILf6ZL._SL500_.jpg',
+                link: 'https://amzn.to/3ErHmOl',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Equipment',
+                Retailer: 'Amazon',
+                title: 'CRAFTSMAN 256-Piece Tool Set',
+                salePrice: '99.00',
+                originalPrice: '159.08',
+                dollarSavings: '60.08',
+                percentOff: '38',
+                image: 'https://m.media-amazon.com/images/I/41cDBUu9GPL._SL500_.jpg',
+                link: 'https://amzn.to/40PCk63',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Furniture',
+                Retailer: 'Amazon',
+                title: 'Kichler Lydra Ceiling Fan',
+                salePrice: '98.90',
+                originalPrice: '353.47',
+                dollarSavings: '254.57',
+                percentOff: '72',
+                image: 'https://m.media-amazon.com/images/I/31qWI2I0dkL._SL500_.jpg',
+                link: 'https://amzn.to/4hKjtQu',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Furniture',
+                Retailer: 'Amazon',
+                title: 'Delta Beverage Faucet, Stainless',
+                salePrice: '102.15',
+                originalPrice: '280.91',
+                dollarSavings: '178.76',
+                percentOff: '64',
+                image: 'https://m.media-amazon.com/images/I/216KaZQqfCS._SL500_.jpg',
+                link: 'https://amzn.to/3QbTdCW',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Electronic',
+                Retailer: 'Amazon',
+                title: 'AirPods Pro 2 Wireless Earbuds w/ MagSafe Case',
+                salePrice: '169.00',
+                originalPrice: '249.00',
+                dollarSavings: '80.00',
+                percentOff: '32',
+                image: 'https://static.slickdealscdn.com/attachment/1/4/2/2/8/0/9/9/200x200/17029522.thumb',
+                link: 'https://amzn.to/40ZiciX',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Electronic',
+                Retailer: 'Amazon',
+                title: 'Pyle Wireless Bluetooth Stereo Amplifier',
+                salePrice: '24.00',
+                originalPrice: '52.00',
+                dollarSavings: '28.00',
+                percentOff: '54',
+                image: 'https://static.slickdealscdn.com/attachment/1/1/4/9/0/0/1/2/200x200/17028238.thumb',
+                link: 'https://amzn.to/410sPSP',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Electronic',
+                Retailer: 'Amazon',
+                title: '10,000mAh Anker Zolo Portable Charger Power Bank',
+                salePrice: '13.00',
+                originalPrice: '26.00',
+                dollarSavings: '13.00',
+                percentOff: '50',
+                image: 'https://static.slickdealscdn.com/attachment/1/7/4/4/2/6/0/200x200/17027950.thumb',
+                link: 'https://amzn.to/4hya5PY',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Kids',
+                Retailer: 'Amazon',
+                title: 'Melissa & Doug Wooden Magnetic Responsibility Chart',
+                salePrice: '13.00',
+                originalPrice: '28.00',
+                dollarSavings: '15.00',
+                percentOff: '54',
+                image: 'https://slickdeals.net/attachment/3/8/9/0/8/6/200x200/16994089.thumb',
+                link: 'https://amzn.to/3CxOMiE',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Electronic',
+                Retailer: 'Amazon',
+                title: '12-Month Infimobile Prepaid Mobile Plan',
+                salePrice: '113.00',
+                originalPrice: '150.00',
+                dollarSavings: '37.00',
+                percentOff: '25',
+                image: 'https://static.slickdealscdn.com/attachment/2/2/0/5/3/200x200/17029606.thumb',
+                link: 'https://amzn.to/3CwncCr',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Furniture',
+                Retailer: 'Amazon',
+                title: 'Vellure Door Draft Stopper',
+                salePrice: '7.00',
+                originalPrice: '13.00',
+                dollarSavings: '6.00',
+                percentOff: '47',
+                image: 'https://static.slickdealscdn.com/attachment/9/3/0/4/6/1/9/200x200/17009185.thumb',
+                link: 'https://amzn.to/3Q3c4A3',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Groceries',
+                Retailer: 'Amazon',
+                title: 'Bush\'s Best Canned Black Beans',
+                salePrice: '11.00',
+                originalPrice: '15.00',
+                dollarSavings: '4.00',
+                percentOff: '27',
+                image: 'https://static.slickdealscdn.com/attachment/1/1/7/1/5/2/7/200x200/17018455.thumb',
+                link: 'https://amzn.to/4hjSICB',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Electronic',
+                Retailer: 'Amazon',
+                title: 'LISEN 3-in-1 Travel MagSafe Charger',
+                salePrice: '19.00',
+                originalPrice: '46.00',
+                dollarSavings: '27.00',
+                percentOff: '59',
+                image: 'https://static.slickdealscdn.com/attachment/3/0/6/6/3/5/5/9/200x200/17002627.thumb',
+                link: 'https://amzn.to/4hmmczJ',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Beauty care',
+                Retailer: 'Amazon',
+                title: 'Crest Pro-Health Toothpaste',
+                salePrice: '16.00',
+                originalPrice: '26.00',
+                dollarSavings: '10.00',
+                percentOff: '38',
+                image: 'https://static.slickdealscdn.com/attachment/1/1/7/1/5/2/7/200x200/17026516.thumb',
+                link: 'https://amzn.to/4jKMgpS',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Groceries',
+                Retailer: 'Amazon',
+                title: 'Lavazza Whole Bean Coffee',
+                salePrice: '11.00',
+                originalPrice: '18.00',
+                dollarSavings: '7.00',
+                percentOff: '39',
+                image: 'https://static.slickdealscdn.com/attachment/1/7/4/4/2/6/0/200x200/17027851.thumb',
+                link: 'https://amzn.to/3Em89M9',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Furniture',
+                Retailer: 'Amazon',
+                title: 'Stainless Steel Water Bottle',
+                salePrice: '11.00',
+                originalPrice: '21.00',
+                dollarSavings: '10.00',
+                percentOff: '48',
+                image: 'https://slickdeals.net/attachment/1/9/1/2/6/8/2/200x200/17013376.thumb',
+                link: 'https://amzn.to/3CvTDRr',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Kids',
+                Retailer: 'Amazon',
+                title: 'Crayola Kids\' Toothbrush',
+                salePrice: '6.00',
+                originalPrice: '8.00',
+                dollarSavings: '2.00',
+                percentOff: '25',
+                image: 'https://slickdeals.net/attachment/3/7/4/7/9/3/200x200/16970065.thumb',
+                link: 'https://amzn.to/40CnpvM',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Electronic',
+                Retailer: 'Amazon',
+                title: 'Radeon 7900 XT Video Card',
+                salePrice: '650.00',
+                originalPrice: '830.00',
+                dollarSavings: '180.00',
+                percentOff: '22',
+                image: 'https://slickdeals.net/attachment/2/1/6/8/2/2/0/200x200/17030038.thumb',
+                link: 'https://amzn.to/42Huaze',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Beauty care',
+                Retailer: 'Amazon',
+                title: 'Plant-Based Immune Support Drops',
+                salePrice: '6.00',
+                originalPrice: '12.00',
+                dollarSavings: '6.00',
+                percentOff: '50',
+                image: 'https://slickdeals.net/attachment/8/1/2/2/7/200x200/17030533.thumb',
+                link: 'https://amzn.to/4hKreWN',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Beauty care',
+                Retailer: 'Amazon',
+                title: 'Sunkisser Liquid Blush & Bronzer',
+                salePrice: '4.00',
+                originalPrice: '12.00',
+                dollarSavings: '8.00',
+                percentOff: '67',
+                image: 'https://slickdeals.net/attachment/1/3/5/8/6/2/3/200x200/17027929.thumb',
+                link: 'https://amzn.to/3Q0zaqO',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Beauty care',
+                Retailer: 'Amazon',
+                title: 'ACT Total Care Zero Alcohol Fluoride Mouthwash',
+                salePrice: '3.00',
+                originalPrice: '6.00',
+                dollarSavings: '3.00',
+                percentOff: '50',
+                image: 'https://slickdeals.net/attachment/2/0/3/1/1/5/0/200x200/17029705.thumb',
+                link: 'https://amzn.to/4gpahjq',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Electronic',
+                Retailer: 'Amazon',
+                title: 'eufy Smart Lock C34 WiFi Keyless Entry Door Lock',
+                salePrice: '70.00',
+                originalPrice: '140.00',
+                dollarSavings: '70.00',
+                percentOff: '50',
+                image: 'https://static.slickdealscdn.com/attachment/1/8/6/3/2/3/2/200x200/17030188.thumb',
+                link: 'https://amzn.to/4gpcfk2',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Equipment',
+                Retailer: 'Amazon',
+                title: 'CRAFTSMAN 3/8- Socket Extension Set',
+                salePrice: '10.00',
+                originalPrice: '27.00',
+                dollarSavings: '17.00',
+                percentOff: '63',
+                image: 'https://slickdeals.net/attachment/1/5/5/7/3/6/2/200x200/17029096.thumb',
+                link: 'https://amzn.to/4grqGDW',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Beauty care',
+                Retailer: 'Amazon',
+                title: 'Panasonic Men\'s ARC5 Electric Razor',
+                salePrice: '109.00',
+                originalPrice: '209.00',
+                dollarSavings: '100.00',
+                percentOff: '48',
+                image: 'https://static.slickdealscdn.com/attachment/3/4/0/1/7/8/0/7/200x200/17029171.thumb',
+                link: 'https://amzn.to/40LOEUP',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Electronic',
+                Retailer: 'Amazon',
+                title: 'AirPods 4 Wireless Earbud Headphones w/ USB-C Charging Case',
+                salePrice: '100.00',
+                originalPrice: '129.00',
+                dollarSavings: '29.00',
+                percentOff: '22',
+                image: 'https://static.slickdealscdn.com/attachment/3/2/5/5/1/1/6/8/200x200/17029039.thumb',
+                link: 'https://amzn.to/4131DTy',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Groceries',
+                Retailer: 'Amazon',
+                title: '1-Gallon Cayenne Pepper Sauce',
+                salePrice: '7.00',
+                originalPrice: '15.00',
+                dollarSavings: '8.00',
+                percentOff: '56',
+                image: 'https://static.slickdealscdn.com/attachment/8/6/6/3/0/200x200/17023120.thumb',
+                link: 'https://amzn.to/4jEeOBn',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Groceries',
+                Retailer: 'Amazon',
+                title: 'Canned Chili Magic Starter 12-Pack',
+                salePrice: '11.00',
+                originalPrice: '24.00',
+                dollarSavings: '13.00',
+                percentOff: '54',
+                image: 'https://static.slickdealscdn.com/attachment/4/3/4/7/1/200x200/17011405.thumb',
+                link: 'https://amzn.to/3WKVHM5',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Electronic',
+                Retailer: 'Amazon',
+                title: 'Photo Studio Backdrop Support System',
+                salePrice: '25.00',
+                originalPrice: '50.00',
+                dollarSavings: '25.00',
+                percentOff: '50',
+                image: 'https://static.slickdealscdn.com/attachment/1/1/3/3/5/6/0/200x200/17013793.thumb',
+                link: 'https://amzn.to/3WGAiE4',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Electronic',
+                Retailer: 'Amazon',
+                title: 'Apple MFi Certified Lightning Cables',
+                salePrice: '4.00',
+                originalPrice: '9.00',
+                dollarSavings: '5.00',
+                percentOff: '61',
+                image: 'https://static.slickdealscdn.com/attachment/8/6/6/3/0/200x200/17022265.thumb',
+                link: 'https://amzn.to/3WKVQ25',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Equipment',
+                Retailer: 'Amazon',
+                title: '19-Piece Impact Socket Set',
+                salePrice: '57.00',
+                originalPrice: '129.00',
+                dollarSavings: '72.00',
+                percentOff: '56',
+                image: 'https://static.slickdealscdn.com/attachment/1/8/2/3/4/5/1/7/200x200/17008147.thumb',
+                link: 'https://amzn.to/3WIUtRu',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Electronic',
+                Retailer: 'Amazon',
+                title: '4MP WiFi Light Bulb Camera',
+                salePrice: '13.00',
+                originalPrice: '40.00',
+                dollarSavings: '27.00',
+                percentOff: '68',
+                image: 'https://static.slickdealscdn.com/attachment/3/0/4/4/1/0/9/7/200x200/16986250.thumb',
+                link: 'https://amzn.to/3Q8PN3D',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Groceries',
+                Retailer: 'Amazon',
+                title: 'Shells & Cheese Cups',
+                salePrice: '4.00',
+                originalPrice: '5.00',
+                dollarSavings: '1.00',
+                percentOff: '25',
+                image: 'https://static.slickdealscdn.com/attachment/2/0/5/3/8/1/8/4/200x200/17016292.thumb',
+                link: 'https://amzn.to/40X8sWz',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Equipment',
+                Retailer: 'Amazon',
+                title: '18V Power Combo Kit',
+                salePrice: '129.00',
+                originalPrice: '199.00',
+                dollarSavings: '70.00',
+                percentOff: '35',
+                image: 'https://slickdeals.net/attachment/5/7/4/5/9/6/3/200x200/17017723.thumb',
+                link: 'https://amzn.to/4gGGLpL',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Electronic',
+                Retailer: 'Amazon',
+                title: 'Bluetooth Over-Ear Headphones',
+                salePrice: '10.00',
+                originalPrice: '27.00',
+                dollarSavings: '17.00',
+                percentOff: '63',
+                image: 'https://slickdeals.net/attachment/5/7/4/5/9/6/3/200x200/17018737.thumb',
+                link: 'https://amzn.to/4gsw2ie',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Electronic',
+                Retailer: 'Amazon',
+                title: 'USB-C Charging Cable 2-Pack',
+                salePrice: '8.00',
+                originalPrice: '10.00',
+                dollarSavings: '2.00',
+                percentOff: '20',
+                image: 'https://slickdeals.net/attachment/4/2/8/1/6/200x200/17016445.thumb',
+                link: 'https://amzn.to/40L8JKM',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Furniture',
+                Retailer: 'Amazon',
+                title: 'Classic Red Rubber 2-Qt Bottle',
+                salePrice: '6.00',
+                originalPrice: '12.00',
+                dollarSavings: '6.00',
+                percentOff: '50',
+                image: 'https://slickdeals.net/attachment/3/3/7/1/0/1/3/4/200x200/17018638.thumb',
+                link: 'https://amzn.to/3EoiS8K',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Groceries',
+                Retailer: 'Amazon',
+                title: 'Grill Mates Garlic Butter Seasoning',
+                salePrice: '2.00',
+                originalPrice: '2.00',
+                dollarSavings: '0.00',
+                percentOff: '24',
+                image: 'https://static.slickdealscdn.com/attachment/1/1/7/1/5/2/7/200x200/17023000.thumb',
+                link: 'https://amzn.to/40GSC12',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Groceries',
+                Retailer: 'Amazon',
+                title: 'Organic Whole Bean Coffee',
+                salePrice: '14.00',
+                originalPrice: '25.00',
+                dollarSavings: '11.00',
+                percentOff: '44',
+                image: 'https://static.slickdealscdn.com/attachment/1/1/7/1/5/2/7/200x200/17022790.thumb',
+                link: 'https://amzn.to/40P4cY2',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Men',
+                Retailer: 'Amazon',
+                title: 'Men\'s Powerblend Fleece Hoodie',
+                salePrice: '20.00',
+                originalPrice: '50.00',
+                dollarSavings: '30.00',
+                percentOff: '60',
+                image: 'https://static.slickdealscdn.com/attachment/1/8/6/3/2/3/2/200x200/17025202.thumb',
+                link: 'https://amzn.to/40XzZHq',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Electronic',
+                Retailer: 'Amazon',
+                title: '128GB iPad Air M2 Wi-Fi Tablet',
+                salePrice: '499.00',
+                originalPrice: '599.00',
+                dollarSavings: '100.00',
+                percentOff: '17',
+                image: 'https://static.slickdealscdn.com/attachment/4/5/4/3/2/5/200x200/17025196.thumb',
+                link: 'https://amzn.to/4hGarUJ',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Kids',
+                Retailer: 'Amazon',
+                title: 'Technic McLaren Race Car',
+                salePrice: '40.00',
+                originalPrice: '50.00',
+                dollarSavings: '10.00',
+                percentOff: '20',
+                image: 'https://static.slickdealscdn.com/attachment/3/7/4/7/9/3/200x200/17019193.thumb',
+                link: 'https://amzn.to/4grtLUP',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Beauty care',
+                Retailer: 'Amazon',
+                title: 'UNbrush Curly Hair Detangling Brush',
+                salePrice: '9.00',
+                originalPrice: '18.00',
+                dollarSavings: '9.00',
+                percentOff: '50',
+                image: 'https://static.slickdealscdn.com/attachment/3/1/7/1/9/9/0/1/200x200/17020282.thumb',
+                link: 'https://amzn.to/4gnUHVh',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Electronics',
+                Retailer: 'Amazon',
+                title: 'ZAGG Fusion Curve Motorola Razr+ Screen Protector',
+                salePrice: '13.48',
+                originalPrice: '39.26',
+                dollarSavings: '25.78',
+                percentOff: '66',
+                image: 'https://m.media-amazon.com/images/I/418bm2frmhL._SL500_.jpg',
+                link: 'https://amzn.to/4jJv4RP',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Kitchenware',
+                Retailer: 'Amazon',
+                title: 'GreenPan GP5 Hard Anodized Ceramic Nonstick Frying Pan Set',
+                salePrice: '44.77',
+                originalPrice: '126.82',
+                dollarSavings: '82.05',
+                percentOff: '65',
+                image: 'https://m.media-amazon.com/images/I/31S9zrObYsL._SL500_.jpg',
+                link: 'https://amzn.to/4gug1IQ',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Bedding',
+                Retailer: 'Amazon',
+                title: 'Elegant Comfort Luxury Soft 6-Piece Bedding Set (California King)',
+                salePrice: '11.67',
+                originalPrice: '19.84',
+                dollarSavings: '8.17',
+                percentOff: '41',
+                image: 'https://m.media-amazon.com/images/I/41+8AiU2tpS._SL500_.jpg',
+                link: 'https://amzn.to/4hKQagA',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Electronics',
+                Retailer: 'Amazon',
+                title: 'SAMSUNG Galaxy S23+ Silicone Grip Phone Case',
+                salePrice: '8.35',
+                originalPrice: '34.03',
+                dollarSavings: '25.68',
+                percentOff: '75',
+                image: 'https://m.media-amazon.com/images/I/21qd+vr906L._SL500_.jpg',
+                link: 'https://amzn.to/4hMwZmI',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Shoes',
+                Retailer: 'Amazon',
+                title: 'Reebok Unisex Court Sneaker',
+                salePrice: '24.99',
+                originalPrice: '47.84',
+                dollarSavings: '22.85',
+                percentOff: '48',
+                image: 'https://m.media-amazon.com/images/I/31CmT1ERTEL._SL500_.jpg',
+                link: 'https://amzn.to/436LbTJ',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Men',
+                Retailer: 'Amazon',
+                title: 'Zubaz Men\'s Full Zip Hoodie',
+                salePrice: '32.11',
+                originalPrice: '54.23',
+                dollarSavings: '22.12',
+                percentOff: '41',
+                image: 'https://m.media-amazon.com/images/I/41SVeM6ddpL._SL500_.jpg',
+                link: 'https://amzn.to/4aU3NYB',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Toys',
+                Retailer: 'Amazon',
+                title: 'TeeTurtle Reversible Octopus Plushie',
+                salePrice: '7.07',
+                originalPrice: '10.35',
+                dollarSavings: '3.28',
+                percentOff: '32',
+                image: 'https://m.media-amazon.com/images/I/4185P0YUZoL._SL500_.jpg',
+                link: 'https://amzn.to/3EF1LQ2',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Bedding',
+                Retailer: 'Amazon',
+                title: 'Tempur-Pedic Cool Luxury Pillow Sham',
+                salePrice: '8.71',
+                originalPrice: '16.86',
+                dollarSavings: '8.15',
+                percentOff: '48',
+                image: 'https://m.media-amazon.com/images/I/31EAoDR58aL._SL500_.jpg',
+                link: 'https://amzn.to/3Q9NPjH',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Electronic',
+                Retailer: 'Amazon',
+                title: 'Logitech G203 Gaming Mouse',
+                salePrice: '17.95',
+                originalPrice: '27.35',
+                dollarSavings: '9.40',
+                percentOff: '34',
+                image: 'https://m.media-amazon.com/images/I/31eiewnlOvL._SL500_.jpg',
+                link: 'https://amzn.to/4hMUImT',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Furniture',
+                Retailer: 'Amazon',
+                title: 'ZULU 32oz Stainless Steel Bottle',
+                salePrice: '15.96',
+                originalPrice: '22.77',
+                dollarSavings: '6.81',
+                percentOff: '30',
+                image: 'https://m.media-amazon.com/images/I/41NhRBcvaqL._SL500_.jpg',
+                link: 'https://amzn.to/3WRxyDY',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Shoes',
+                Retailer: 'Amazon',
+                title: 'Lucky Brand Women\'s Ankle Boot',
+                salePrice: '37.18',
+                originalPrice: '79.38',
+                dollarSavings: '42.20',
+                percentOff: '53',
+                image: 'https://m.media-amazon.com/images/I/417TlzYd1CL._SL500_.jpg',
+                link: 'https://amzn.to/4gALU2p',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Furniture',
+                Retailer: 'Amazon',
+                title: 'RoomMates Blue Aura Wall Mural',
+                salePrice: '9.86',
+                originalPrice: '34.45',
+                dollarSavings: '24.59',
+                percentOff: '71',
+                image: 'https://m.media-amazon.com/images/I/51kBxchGwVL._SL500_.jpg',
+                link: 'https://amzn.to/4gwoV8M',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Kids',
+                Retailer: 'Amazon',
+                title: 'Dream On Me Toddler Bed',
+                salePrice: '45.00',
+                originalPrice: '130.00',
+                dollarSavings: '85.00',
+                percentOff: '65',
+                image: 'https://m.media-amazon.com/images/I/61+s6vQu1fL._AC_SX569_.jpg',
+                link: 'https://amzn.to/3WTjlpN',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Men',
+                Retailer: 'Amazon',
+                title: 'Lee Men\'s Extreme Motion Pants',
+                salePrice: '19.00',
+                originalPrice: '42.00',
+                dollarSavings: '23.00',
+                percentOff: '54',
+                image: 'https://m.media-amazon.com/images/I/61KlFBNilLL._AC_SY679_.jpg',
+                link: 'https://amzn.to/40Mokdg',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Electronic',
+                Retailer: 'Amazon',
+                title: 'XtremepowerUS Automatic Pool Cleaner',
+                salePrice: '35.00',
+                originalPrice: '76.00',
+                dollarSavings: '41.00',
+                percentOff: '53',
+                image: 'https://m.media-amazon.com/images/I/71TbdII7UqL._AC_SX522_.jpg',
+                link: 'https://amzn.to/3Q9fbqk',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Electronic',
+                Retailer: 'Amazon',
+                title: 'Anker Zolo Portable Charger Deal',
+                salePrice: '25.00',
+                originalPrice: '50.00',
+                dollarSavings: '25.00',
+                percentOff: '50',
+                image: 'https://m.media-amazon.com/images/I/61wF4pM8yeL._AC_SX569_.jpg',
+                link: 'https://amzn.to/40Loxx7',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Women',
+                Retailer: 'Amazon',
+                title: 'Rival Fleece Joggers, Castlerock',
+                salePrice: '23.58',
+                originalPrice: '34.43',
+                dollarSavings: '10.85',
+                percentOff: '32',
+                image: 'https://m.media-amazon.com/images/I/41FQgtiQ0iL._SL500_.jpg',
+                link: 'https://amzn.to/40Dot2w',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Electronic',
+                Retailer: 'Amazon',
+                title: 'The Lost Crown, Xbox Edition',
+                salePrice: '26.66',
+                originalPrice: '41.04',
+                dollarSavings: '14.38',
+                percentOff: '35',
+                image: 'https://m.media-amazon.com/images/I/51qkNATa9oL._SL500_.jpg',
+                link: 'https://amzn.to/3CCVZOm',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Electronic',
+                Retailer: 'Amazon',
+                title: 'Symmetry Series iPhone Case, Camo',
+                salePrice: '19.69',
+                originalPrice: '35.62',
+                dollarSavings: '15.93',
+                percentOff: '45',
+                image: 'https://m.media-amazon.com/images/I/41XK9kHMZdL._SL500_.jpg',
+                link: 'https://amzn.to/4127x79',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Kids',
+                Retailer: 'Amazon',
+                title: 'Shyft DualRide Car Seat Combo',
+                salePrice: '205.26',
+                originalPrice: '540.13',
+                dollarSavings: '334.87',
+                percentOff: '62',
+                image: 'https://m.media-amazon.com/images/I/41TqdobBvzL._SL500_.jpg',
+                link: 'https://amzn.to/42FwoPk',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Furniture',
+                Retailer: 'Amazon',
+                title: 'Anchor Hocking Glass Jar Set',
+                salePrice: '11.94',
+                originalPrice: '25.42',
+                dollarSavings: '13.48',
+                percentOff: '53',
+                image: 'https://m.media-amazon.com/images/I/31EGaaHMg0L._SL500_.jpg',
+                link: 'https://amzn.to/3WLXwsk',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Furniture',
+                Retailer: 'Amazon',
+                title: 'Mikasa Rockford 42-Piece Cutlery Set',
+                salePrice: '85.00',
+                originalPrice: '168.15',
+                dollarSavings: '83.15',
+                percentOff: '49',
+                image: 'https://m.media-amazon.com/images/I/31PgLuMhYVL._SL500_.jpg',
+                link: 'https://amzn.to/3CxQLUb',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Shoes',
+                Retailer: 'Amazon',
+                title: 'Gotrax Edge 6.5- Hoverboard Pink',
+                salePrice: '47.00',
+                originalPrice: '114.73',
+                dollarSavings: '67.73',
+                percentOff: '59',
+                image: 'https://m.media-amazon.com/images/I/41i9v9TAuQL._SL500_.jpg',
+                link: 'https://amzn.to/4hGhr3L',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Electronic',
+                Retailer: 'Amazon',
+                title: 'LG G6 32GB Unlocked Smartphone',
+                salePrice: '91.47',
+                originalPrice: '699.99',
+                dollarSavings: '608.52',
+                percentOff: '87',
+                image: 'https://m.media-amazon.com/images/I/41kq2kgA2IL._SL500_.jpg',
+                link: 'https://amzn.to/3CDkbAk',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Furniture',
+                Retailer: 'Amazon',
+                title: 'Delta Saylor Brushed Nickel Tub Faucet',
+                salePrice: '33.35',
+                originalPrice: '354.93',
+                dollarSavings: '321.58',
+                percentOff: '91',
+                image: 'https://m.media-amazon.com/images/I/31fPhvufmVL._SL500_.jpg',
+                link: 'https://amzn.to/4aNg5C9',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Furniture',
+                Retailer: 'Amazon',
+                title: 'Westbrass Brass Tub Spout Matte Black',
+                salePrice: '6.26',
+                originalPrice: '88.84',
+                dollarSavings: '82.58',
+                percentOff: '93',
+                image: 'https://m.media-amazon.com/images/I/21wtqhURpfL._SL500_.jpg',
+                link: 'https://amzn.to/40MOGvo',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Groceries',
+                Retailer: 'Amazon',
+                title: '24oz Roasted Almond & Cashew Blend',
+                salePrice: '10.00',
+                originalPrice: '14.00',
+                dollarSavings: '4.00',
+                percentOff: '30',
+                image: 'https://m.media-amazon.com/images/I/81kFsXEOI6L._SX679_.jpg',
+                link: 'https://amzn.to/3WHbqMg',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Electronic',
+                Retailer: 'Amazon',
+                title: 'M.2 NVMe PS5 Heatsink',
+                salePrice: '10.00',
+                originalPrice: '20.00',
+                dollarSavings: '10.00',
+                percentOff: '50',
+                image: 'https://m.media-amazon.com/images/I/71aQohJ5tbL._AC_SX522_.jpg',
+                link: 'https://amzn.to/4jGSbfK',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Groceries',
+                Retailer: 'Amazon',
+                title: '24-Pack Zbar Snack Bars',
+                salePrice: '12.00',
+                originalPrice: '20.00',
+                dollarSavings: '8.00',
+                percentOff: '40',
+                image: 'https://m.media-amazon.com/images/I/81b3MveGJsL._SX679_.jpg',
+                link: 'https://amzn.to/4jJTACo',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Kids',
+                Retailer: 'Amazon',
+                title: 'Road Trip-Inspired Card Deck',
+                salePrice: '4.00',
+                originalPrice: '25.00',
+                dollarSavings: '21.00',
+                percentOff: '84',
+                image: 'https://m.media-amazon.com/images/I/71oR5M3GVnL._SY342_.jpg',
+                link: 'https://amzn.to/411awgo',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Electronic',
+                Retailer: 'Amazon',
+                title: 'The Veilguard PS5 Game',
+                salePrice: '25.00',
+                originalPrice: '70.00',
+                dollarSavings: '45.00',
+                percentOff: '64',
+                image: 'https://m.media-amazon.com/images/I/81oi36tdPWL._SX342_.jpg',
+                link: 'https://amzn.to/4aJrlj9',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Electronic',
+                Retailer: 'Amazon',
+                title: '34- Ultragear OLED Gaming Monitor',
+                salePrice: '800.00',
+                originalPrice: '1300.00',
+                dollarSavings: '500.00',
+                percentOff: '38',
+                image: 'https://slickdeals.net/attachment/8/4/0/9/0/5/1/450x450/17010055.thumb',
+                link: 'https://amzn.to/4jHwz2U',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Groceries',
+                Retailer: 'Amazon',
+                title: '12-Pack C or D Batteries',
+                salePrice: '9.00',
+                originalPrice: '18.00',
+                dollarSavings: '9.00',
+                percentOff: '50',
+                image: 'https://slickdeals.net/attachment/1/1/7/1/5/2/7/450x450/17022883.thumb',
+                link: 'https://amzn.to/3Ev9sbr',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Electronic',
+                Retailer: 'Amazon',
+                title: '3-Outlet Surge Protector 2-Pack',
+                salePrice: '10.00',
+                originalPrice: '20.00',
+                dollarSavings: '10.00',
+                percentOff: '50',
+                image: 'https://slickdeals.net/attachment/5/6/6/0/4/5/9/450x450/17024278.thumb',
+                link: 'https://amzn.to/3Ev9uA5',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Furniture',
+                Retailer: 'Amazon',
+                title: '30-Can Collapsible Cooler Bag',
+                salePrice: '20.00',
+                originalPrice: '40.00',
+                dollarSavings: '20.00',
+                percentOff: '50',
+                image: 'https://slickdeals.net/attachment/2/7/3/8/6/3/8/7/450x450/17022157.thumb',
+                link: 'https://amzn.to/40Gsu6f',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Equipment',
+                Retailer: 'Amazon',
+                title: '2-in-1 Mini Stair Stepper',
+                salePrice: '40.00',
+                originalPrice: '88.00',
+                dollarSavings: '48.00',
+                percentOff: '55',
+                image: 'https://slickdeals.net/attachment/9/3/0/4/6/1/9/450x450/17021665.thumb',
+                link: 'https://amzn.to/3WHWxJE',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Furniture',
+                Retailer: 'Amazon',
+                title: '3-Tier Omega End Table',
+                salePrice: '38.00',
+                originalPrice: '75.00',
+                dollarSavings: '37.00',
+                percentOff: '49',
+                image: 'https://slickdeals.net/attachment/2/5/4/6/2/4/450x450/17023291.thumb',
+                link: 'https://amzn.to/40Vdwuz',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Furniture',
+                Retailer: 'Amazon',
+                title: 'EasyStore Slimline Storage Basket',
+                salePrice: '7.00',
+                originalPrice: '13.00',
+                dollarSavings: '6.00',
+                percentOff: '46',
+                image: 'https://slickdeals.net/attachment/1/1/7/1/5/2/7/450x450/17022820.thumb',
+                link: 'https://amzn.to/40yBZnS',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Electronic',
+                Retailer: 'Amazon',
+                title: 'M.2 NVMe SSD Aluminum Heatsink',
+                salePrice: '10.00',
+                originalPrice: '20.00',
+                dollarSavings: '10.00',
+                percentOff: '51',
+                image: 'https://static.slickdealscdn.com/attachment/9/5/3/2/3/200x200/17023597.thumb',
+                link: 'https://amzn.to/42CTZQI',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Groceries',
+                Retailer: 'Amazon',
+                title: 'Coconut Wafers (24 Pieces)',
+                salePrice: '1.00',
+                originalPrice: '1.00',
+                dollarSavings: '0.00',
+                percentOff: '33',
+                image: 'https://static.slickdealscdn.com/attachment/1/4/1/3/2/6/0/200x200/17019985.thumb',
+                link: 'https://amzn.to/4hAQBdo',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Groceries',
+                Retailer: 'Amazon',
+                title: '12-Pack Protein Shakes',
+                salePrice: '15.00',
+                originalPrice: '24.00',
+                dollarSavings: '9.00',
+                percentOff: '38',
+                image: 'https://static.slickdealscdn.com/attachment/9/3/0/4/6/1/9/200x200/17024935.thumb',
+                link: 'https://amzn.to/4hKq3ql',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Art',
+                Retailer: 'Amazon',
+                title: 'Douglas El Morro Canvas Art',
+                salePrice: '19.94',
+                originalPrice: '55.63',
+                dollarSavings: '35.69',
+                percentOff: '64',
+                image: 'https://m.media-amazon.com/images/I/51frWziH9fL._SL500_.jpg',
+                link: 'https://amzn.to/4hRoqau',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Kids',
+                Retailer: 'Amazon',
+                title: 'Disney Doorables Villains Collection',
+                salePrice: '14.65',
+                originalPrice: '20.90',
+                dollarSavings: '6.25',
+                percentOff: '30',
+                image: 'https://m.media-amazon.com/images/I/41d1JKY3lCL._SL500_.jpg',
+                link: 'https://amzn.to/42U98x4',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Art',
+                Retailer: 'Amazon',
+                title: 'Tim Nyberg \'Jazz Band\' Canvas',
+                salePrice: '12.95',
+                originalPrice: '51.29',
+                dollarSavings: '38.34',
+                percentOff: '75',
+                image: 'https://m.media-amazon.com/images/I/51Vy9dHrEUL._SL500_.jpg',
+                link: 'https://amzn.to/4jOB8II',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Art',
+                Retailer: 'Amazon',
+                title: 'Jack Sorenson Cowboy Christmas Art',
+                salePrice: '8.95',
+                originalPrice: '35.41',
+                dollarSavings: '26.46',
+                percentOff: '75',
+                image: 'https://m.media-amazon.com/images/I/41kL+r9FLkL._SL500_.jpg',
+                link: 'https://amzn.to/4hQDbtS',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Medical',
+                Retailer: 'Amazon',
+                title: 'Medicopaste Bandage Medical Tape',
+                salePrice: '38.55',
+                originalPrice: '89.62',
+                dollarSavings: '51.07',
+                percentOff: '57',
+                image: 'https://m.media-amazon.com/images/I/41BCNLvOX1L._SL500_.jpg',
+                link: 'https://amzn.to/4hPo0kF',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Furniture',
+                Retailer: 'Amazon',
+                title: 'Majestic Giftware Tablecloths',
+                salePrice: '32.15',
+                originalPrice: '58.05',
+                dollarSavings: '25.90',
+                percentOff: '45',
+                image: 'https://m.media-amazon.com/images/I/51XP8R+n65L._SL500_.jpg',
+                link: 'https://amzn.to/4hkDiy5',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Electronic',
+                Retailer: 'Amazon',
+                title: 'Sony LinkBuds S Wireless Earbuds',
+                salePrice: '70.91',
+                originalPrice: '159.85',
+                dollarSavings: '88.94',
+                percentOff: '56',
+                image: 'https://m.media-amazon.com/images/I/21HGmr67uKL._SL500_.jpg',
+                link: 'https://amzn.to/42HuON3',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Furniture',
+                Retailer: 'Amazon',
+                title: 'DEZ FURNISHINGS Faux Wood Blinds',
+                salePrice: '13.18',
+                originalPrice: '55.69',
+                dollarSavings: '42.51',
+                percentOff: '76',
+                image: 'https://m.media-amazon.com/images/I/51eJm5iNJLL._SL500_.jpg',
+                link: 'https://amzn.to/4gAETyH',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Shoes',
+                Retailer: 'Amazon',
+                title: 'Shoes for Crews Women\'s Work Boots',
+                salePrice: '24.12',
+                originalPrice: '77.04',
+                dollarSavings: '52.92',
+                percentOff: '69',
+                image: 'https://m.media-amazon.com/images/I/413-beLk1bL._SL500_.jpg',
+                link: 'https://amzn.to/4gsJanP',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Equipment',
+                Retailer: 'Amazon',
+                title: 'Coleman Rechargeable Heated Chair',
+                salePrice: '63.36',
+                originalPrice: '169.92',
+                dollarSavings: '106.56',
+                percentOff: '63',
+                image: 'https://m.media-amazon.com/images/I/41TBti1tZmL._SL500_.jpg',
+                link: 'https://amzn.to/4gx7mVV',
+                timestamp: new Date().toISOString()
+            }
+        ];
+
+        function filterDeals() {
+            if (isLoading) return;
+            
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const selectedCategory = document.getElementById('categoryFilter').value;
+            
+            const filteredDeals = allDeals.filter(deal => {
+                const matchesSearch = deal.title.toLowerCase().includes(searchTerm);
+                const matchesCategory = !selectedCategory || deal.Category === selectedCategory;
+                return matchesSearch && matchesCategory;
+            });
+            
+            displayDeals(filteredDeals);
+        }
+
+        // Reset pagination when searching or changing category
+        document.getElementById('searchInput').addEventListener('input', () => {
+            currentPage = 1;
+            filterDeals();
+        });
+        
+        document.getElementById('categoryFilter').addEventListener('change', () => {
+            currentPage = 1;
+            filterDeals();
+        });
+
+        // Update category options to include all categories
+        const categorySelect = document.querySelector('.category-select');
+        categorySelect.innerHTML = `
+            <option value="">All Categories</option>
+            <option value="Men">Men</option>
+            <option value="Women">Women</option>
+            <option value="Kids">Kids</option>
+            <option value="Electronic">Electronics</option>
+            <option value="Shoes">Shoes</option>
+            <option value="Furniture">Furniture</option>
+            <option value="Beauty care">Beauty Care</option>
+            <option value="Groceries">Groceries</option>
+            <option value="Equipment">Equipment</option>
+            <option value="Art">Art</option>
+            <option value="Medical">Medical</option>
+        `;
+
+        function filterByCategory(category) {
+            const categorySelect = document.querySelector('.category-select');
+            categorySelect.value = category;
+            categorySelect.dispatchEvent(new Event('change'));
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
