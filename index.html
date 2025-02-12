@@ -11,6 +11,29 @@
     <link rel="manifest" href="https://i.ibb.co/xqjGj9f/site.webmanifest">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        /* Add at the start of style section */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* For Safari and older browsers */
+        body {
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Optional: Add smooth scroll for specific elements */
+        .deal-card, 
+        .footer-section, 
+        .category-select,
+        .newsletter-form {
+            transition: all 0.3s ease;
+        }
+
+        /* Smooth scroll for back to top if you have one */
+        .back-to-top {
+            transition: all 0.3s ease;
+        }
+
         /* Base styles */
         * {
             margin: 0;
@@ -61,22 +84,59 @@
             text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
 
-        /* Move search container below header */
+        /* Add fixed search section styles */
         .search-section {
-            background: #f5f5f5;
-            padding: 1rem;
             position: sticky;
-            top: 70px;
-            z-index: 99;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            top: 60px; /* Height of the header */
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 15px;
+            background: #f5f5f5; /* Match the body background */
         }
 
         .search-container {
             max-width: 1200px;
             margin: 0 auto;
             display: flex;
-            gap: 1rem;
-            padding: 0 1rem;
+            gap: 15px;
+            width: 100%;
+        }
+
+        /* Adjust main content spacing */
+        main {
+            margin-top: 0; /* Remove the extra margin */
+            padding-top: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .search-container {
+                flex-direction: row !important; /* Force row direction */
+                gap: 8px;
+                padding: 0 10px;
+            }
+
+            .category-select {
+                width: 100px; /* Make it even smaller */
+                min-width: 100px; /* Prevent flex shrinking */
+                padding: 0.5rem;
+                font-size: 0.85rem;
+            }
+
+            #searchInput {
+                padding: 0.5rem;
+                font-size: 0.85rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .search-container {
+                flex-direction: row !important;
+            }
+
+            .category-select {
+                width: 100px;
+            }
         }
 
         /* Deals grid responsive styles */
@@ -177,21 +237,9 @@
                 font-size: 1.5rem;
             }
 
-            .search-section {
-                top: 60px;
-            }
-
-            .search-container {
-                flex-direction: column;
-            }
-
             h1 {
                 font-size: 2rem;
                 margin-bottom: 0.5rem;
-            }
-
-            main {
-                margin-top: 0.5rem;
             }
 
             .deals-grid {
@@ -278,7 +326,7 @@
             font-size: 1rem;
             background: white;
             cursor: pointer;
-            width: 200px; /* Fixed width for category dropdown */
+            width: 200px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
             transition: all 0.3s ease;
         }
@@ -294,12 +342,6 @@
         /* Remove old category menu styles */
         .category-menu {
             display: none;
-        }
-
-        /* Adjust main content margin */
-        main {
-            margin-top: 0;
-            padding-top: 1rem;
         }
 
         /* Add preloader styles */
@@ -701,6 +743,671 @@
             background: rgba(255, 255, 255, 0.2);
             transform: translateY(-2px);
         }
+
+        /* Add some basic styling for no deals message */
+        .no-deals {
+            text-align: center;
+            padding: 2rem;
+            font-size: 1.2rem;
+            color: #666;
+        }
+
+        .slider-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 15px;
+            background: #fff;
+        }
+
+        .slider {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .slides {
+            display: flex;
+            width: 500%; /* 100% * number of slides */
+            height: 100%;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .slide {
+            width: 20%; /* 100% / number of slides */
+            height: 100%;
+            position: relative;
+        }
+
+        .slide a {
+            display: block;
+            width: 100%;
+            height: 100%;
+            text-decoration: none;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background: #f5f5f5;
+        }
+
+        .slide-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 20px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+        }
+
+        .slide-info h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.2rem;
+            color: white;
+        }
+
+        .price {
+            font-size: 1.1rem;
+            margin: 5px 0;
+            color: white;
+        }
+
+        .original-price {
+            text-decoration: line-through;
+            color: #ccc;
+            margin-left: 10px;
+        }
+
+        .savings {
+            color: #4CAF50;
+            margin: 5px 0;
+            font-weight: bold;
+        }
+
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.5);
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            z-index: 10;
+            transition: background 0.3s;
+        }
+
+        .slider-btn:hover {
+            background: rgba(0,0,0,0.8);
+        }
+
+        .prev { left: 10px; border-radius: 0 3px 3px 0; }
+        .next { right: 10px; border-radius: 3px 0 0 3px; }
+
+        .slider-dots {
+            position: absolute;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            background: rgba(255,255,255,0.5);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .dot.active {
+            background: white;
+        }
+
+        @media (max-width: 768px) {
+            .slider {
+                height: 300px;
+            }
+
+            .slide-info h3 {
+                font-size: 1rem;
+            }
+        }
+
+        .banner-slider {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(to right, #e8f5e9 50%, transparent 50%);
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .banner-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .banner-text {
+            position: relative;
+            overflow: hidden;
+            padding: 20px;
+            z-index: 2;
+        }
+
+        .banner-text h2 {
+            color: #fff;
+            text-transform: uppercase;
+            font-weight: 800;
+            font-size: 3rem;
+            margin: 0;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease forwards;
+            background: linear-gradient(to right, #fff, #e0e0e0);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .banner-text p {
+            color: #e0e0e0;
+            font-size: 1.2rem;
+            margin-top: 10px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease forwards 0.3s;
+        }
+
+        .banner-images {
+            position: absolute;
+            right: 0;
+            width: 60%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            transform: skew(-10deg);
+            overflow: hidden;
+        }
+
+        .banner-images img {
+            width: 200px;
+            height: 250px;
+            object-fit: contain;
+            margin-right: -50px;
+            transform: skew(10deg);
+            transition: transform 0.3s ease;
+        }
+
+        .banner-images img:hover {
+            transform: skew(10deg) scale(1.1);
+        }
+
+        @media (max-width: 768px) {
+            .banner-slider {
+                height: 400px;
+                background: #e8f5e9;
+            }
+
+            .banner-content {
+                flex-direction: column;
+                padding: 20px;
+            }
+
+            .banner-text {
+                width: 100%;
+                padding: 20px;
+                text-align: center;
+            }
+
+            .banner-text h2 {
+                font-size: 1.8rem;
+            }
+
+            .banner-text p {
+                font-size: 1rem;
+            }
+
+            .banner-images {
+                position: relative;
+                width: 100%;
+                height: 200px;
+                transform: none;
+                justify-content: flex-start;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none; /* Firefox */
+                -ms-overflow-style: none; /* IE and Edge */
+            }
+
+            .banner-images::-webkit-scrollbar {
+                display: none; /* Chrome, Safari, Opera */
+            }
+
+            .banner-images img {
+                width: 150px;
+                height: 180px;
+                margin-right: 15px;
+                transform: none;
+                flex-shrink: 0;
+            }
+
+            .banner-images img:hover {
+                transform: scale(1.05);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .banner-slider {
+                background: linear-gradient(to bottom, #e8f5e9 60%, transparent 40%);
+            }
+
+            .banner-content {
+                flex-direction: column;
+            }
+
+            .banner-text {
+                width: 100%;
+                padding: 20px;
+                text-align: center;
+            }
+
+            .banner-images {
+                width: 100%;
+                transform: none;
+            }
+
+            .banner-images img {
+                width: 120px;
+                height: 160px;
+                transform: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .banner-images {
+                scroll-behavior: smooth;
+                -webkit-overflow-scrolling: touch;
+                scroll-snap-type: x mandatory;
+            }
+
+            .banner-images img {
+                scroll-snap-align: start;
+            }
+        }
+
+        .banner-card {
+            width: 300px;
+            height: 380px;
+            margin-right: 20px;
+            flex-shrink: 0;
+            background: linear-gradient(145deg, #1a0037, #4a0072);
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .banner-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .glow {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 0%, 
+                rgba(255,255,255,0.1) 0%, 
+                rgba(255,255,255,0.05) 30%, 
+                transparent 70%);
+        }
+
+        .banner-content {
+            height: 100%;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .badge {
+            background: #ff3e9d;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(255,62,157,0.3);
+        }
+
+        .offer-text {
+            margin: 40px 0;
+            display: flex;
+            align-items: flex-start;
+            color: white;
+        }
+
+        .number {
+            font-size: 7rem;
+            font-weight: 800;
+            line-height: 1;
+            text-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            background: linear-gradient(to bottom, #fff, #e0e0e0);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .percent-off {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-left: 5px;
+            margin-top: 15px;
+        }
+
+        .percent-off span:first-child {
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .percent-off span:last-child {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-top: 5px;
+        }
+
+        .sale-text {
+            color: #e0e0e0;
+            font-size: 1.1rem;
+            margin: 0;
+            opacity: 0.9;
+        }
+
+        .shop-btn {
+            margin-top: auto;
+            padding: 12px 35px;
+            border: none;
+            border-radius: 30px;
+            background: linear-gradient(45deg, #ff3e9d, #ff7eb3);
+            color: white;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 5px 15px rgba(255,62,157,0.3);
+        }
+
+        .shop-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255,62,157,0.4);
+        }
+
+        @media (max-width: 768px) {
+            .banner-card {
+                width: 260px;
+                height: 340px;
+                margin-right: 15px;
+            }
+
+            .number {
+                font-size: 5.5rem;
+            }
+
+            .percent-off span:first-child {
+                font-size: 2rem;
+            }
+
+            .percent-off span:last-child {
+                font-size: 1.5rem;
+            }
+
+            .sale-text {
+                font-size: 1rem;
+            }
+
+            .shop-btn {
+                padding: 10px 30px;
+                font-size: 0.9rem;
+            }
+        }
+
+        .shine-effect {
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.2),
+                transparent
+            );
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% {
+                left: -100%;
+            }
+            20% {
+                left: 100%;
+            }
+            100% {
+                left: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .animate-title {
+                font-size: 2.2rem;
+            }
+
+            .animate-subtitle {
+                font-size: 1rem;
+            }
+        }
+
+        .banner-slider {
+            background: linear-gradient(135deg, #13001e, #230054);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .text-wrapper {
+            position: relative;
+            z-index: 2;
+        }
+
+        .animate-title {
+            font-size: 3.5rem;
+            background: linear-gradient(45deg, #fff 30%, #ffd6e7 70%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: titleFloat 3s ease-in-out infinite;
+        }
+
+        .animate-subtitle {
+            color: #ffd6e7;
+            font-size: 1.3rem;
+            letter-spacing: 2px;
+            animation: subtitlePulse 2s ease-in-out infinite;
+        }
+
+        .floating-shapes .shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(10px);
+            opacity: 0.5;
+            animation: floatAround 15s linear infinite;
+        }
+
+        .shape1 {
+            width: 100px;
+            height: 100px;
+            background: #ff3e9d;
+            top: -20px;
+            left: 10%;
+        }
+
+        .shape2 {
+            width: 150px;
+            height: 150px;
+            background: #7b1fa2;
+            bottom: -30px;
+            right: 20%;
+            animation-delay: -5s;
+        }
+
+        .shape3 {
+            width: 80px;
+            height: 80px;
+            background: #ff7eb3;
+            top: 40%;
+            left: 30%;
+            animation-delay: -8s;
+        }
+
+        .banner-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transform-style: preserve-3d;
+            transform: perspective(1000px);
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .banner-card:hover {
+            transform: perspective(1000px) rotateY(-5deg) translateY(-5px);
+        }
+
+        .card-bg {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at top right, 
+                rgba(255, 62, 157, 0.5), 
+                rgba(123, 31, 162, 0.5));
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        .banner-card:hover .card-bg {
+            opacity: 1;
+        }
+
+        .badge {
+            animation: badgePulse 2s infinite;
+            background: linear-gradient(45deg, #ff3e9d, #ff7eb3);
+        }
+
+        .number {
+            font-size: 8rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, #fff, #ffd6e7);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.2);
+            animation: numberFloat 3s ease-in-out infinite;
+        }
+
+        .shop-btn {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(45deg, #ff3e9d, #ff7eb3);
+            border: none;
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .shop-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255,62,157,0.4);
+        }
+
+        .btn-glow {
+            position: absolute;
+            width: 20px;
+            height: 100%;
+            background: rgba(255,255,255,0.3);
+            top: 0;
+            left: -50px;
+            transform: skewX(-25deg);
+            animation: btnGlow 3s infinite;
+        }
+
+        @keyframes titleFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes subtitlePulse {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+
+        @keyframes floatAround {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(20px, 20px) rotate(360deg); }
+        }
+
+        @keyframes badgePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes numberFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes btnGlow {
+            0% { left: -50px; }
+            100% { left: 150%; }
+        }
+
+        @media (max-width: 768px) {
+            .animate-title {
+                font-size: 2.5rem;
+            }
+            
+            .animate-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .number {
+                font-size: 6rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -713,50 +1420,103 @@
     <div id="mainContent">
         <header>
             <div class="header-content">
-                <a href="/" class="logo">Save Radar</a>
+                <a href="index.html" class="logo">Save Radar</a>
             </div>
         </header>
 
-        <div class="search-section">
-            <div class="search-container">
-                <select class="category-select" id="categoryFilter">
-                    <option value="">All Categories</option>
-                    <option value="Men">Men</option>
-                    <option value="Women">Women</option>
-                    <option value="Kids">Kids</option>
-                    <option value="Electronic">Electronics</option>
-                    <option value="Shoes">Shoes</option>
-                    <option value="Furniture">Furniture</option>
-                    <option value="Beauty care">Beauty Care</option>
-                    <option value="Groceries">Groceries</option>
-                    <option value="Kitchenware">Kitchenware</option>
-                    <option value="Bedding">Bedding</option>
-                    <option value="Toys">Toys</option>
-                    <option value="Equipment">Equipment</option>
-                    <option value="Game">Game</option>
-                    <option value="Office Supplies">Office Supplies</option>
-                </select>
-                <input type="text" id="searchInput" placeholder="Search deals...">
-            </div>
-        </div>
-
         <main>
+         
+            <!-- Moved search section here -->
+            <div class="search-section">
+                <div class="search-container">
+                    <select class="category-select" id="categoryFilter">
+                        <option value="">All Categories</option>
+                        <option value="Men">Men</option>
+                        <option value="Women">Women</option>
+                        <option value="Kids">Kids</option>
+                        <option value="Electronic">Electronics</option>
+                        <option value="Shoes">Shoes</option>
+                        <option value="Furniture">Furniture</option>
+                        <option value="Beauty care">Beauty Care</option>
+                        <option value="Groceries">Groceries</option>
+                        <option value="Equipment">Equipment</option>
+                        <option value="Art">Art</option>
+                        <option value="Medical">Medical</option>
+                        <option value="Toys">Toys</option>
+                        <option value="Kitchenware">Kitchenware</option>
+                        <option value="Sports">Sports</option>
+                        <option value="Home Decor">Home Decor</option>
+                        <option value="Game">Game</option>
+                    </select>
+                    <input type="text" id="searchInput" placeholder="Search deals...">
+                </div>
+            </div>
+
             <div class="deals-grid" id="dealsContainer">
                 <!-- Deals will be populated here -->
             </div>
         </main>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const slider = document.querySelector('.slides');
+                const slides = document.querySelectorAll('.slide');
+                const prevBtn = document.querySelector('.prev');
+                const nextBtn = document.querySelector('.next');
+                const dotsContainer = document.querySelector('.slider-dots');
+
+                let currentSlide = 0;
+                const slideCount = slides.length;
+
+                // Create dots
+                for (let i = 0; i < slideCount; i++) {
+                    const dot = document.createElement('div');
+                    dot.classList.add('dot');
+                    if (i === 0) dot.classList.add('active');
+                    dot.addEventListener('click', () => goToSlide(i));
+                    dotsContainer.appendChild(dot);
+                }
+
+                function updateDots() {
+                    document.querySelectorAll('.dot').forEach((dot, index) => {
+                        dot.classList.toggle('active', index === currentSlide);
+                    });
+                }
+
+                function goToSlide(n) {
+                    currentSlide = n;
+                    slider.style.transform = `translateX(-${currentSlide * 20}%)`; // 20% per slide
+                    updateDots();
+                }
+
+                function nextSlide() {
+                    currentSlide = (currentSlide + 1) % slideCount;
+                    goToSlide(currentSlide);
+                }
+
+                function prevSlide() {
+                    currentSlide = (currentSlide - 1 + slideCount) % slideCount;
+                    goToSlide(currentSlide);
+                }
+
+                prevBtn.addEventListener('click', prevSlide);
+                nextBtn.addEventListener('click', nextSlide);
+
+                // Auto-advance slides
+                const slideInterval = setInterval(nextSlide, 5000);
+
+                // Pause auto-advance on hover
+                slider.addEventListener('mouseenter', () => clearInterval(slideInterval));
+                slider.addEventListener('mouseleave', () => setInterval(nextSlide, 5000));
+            });
+        </script>
 
         <footer class="footer">
             <div class="footer-content">
                 <div class="footer-section">
                     <h3>About Save Radar</h3>
                     <p>Your ultimate destination for the best deals and savings across Amazon. We help you find amazing discounts on products you love.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-pinterest"></i></a>
-                    </div>
+                    
                 </div>
 
                 <div class="footer-section">
@@ -772,10 +1532,10 @@
                 <div class="footer-section">
                     <h3>Categories</h3>
                     <ul class="footer-links">
-                        <li><a href="#"><i class="fas fa-angle-right"></i> Electronics</a></li>
-                        <li><a href="#"><i class="fas fa-angle-right"></i> Fashion</a></li>
-                        <li><a href="#"><i class="fas fa-angle-right"></i> Home & Kitchen</a></li>
-                        <li><a href="#"><i class="fas fa-angle-right"></i> Beauty & Personal Care</a></li>
+                        <li><a onclick="filterByCategory('Electronic')" style="cursor: pointer;"><i class="fas fa-angle-right"></i> Electronics</a></li>
+                        <li><a onclick="showFashion()" style="cursor: pointer;"><i class="fas fa-angle-right"></i> Fashion</a></li>
+                        <li><a onclick="filterByCategory('Kitchenware')" style="cursor: pointer;"><i class="fas fa-angle-right"></i> Home & Kitchen</a></li>
+                        <li><a onclick="filterByCategory('Beauty care')" style="cursor: pointer;"><i class="fas fa-angle-right"></i> Beauty & Personal Care</a></li>
                     </ul>
                 </div>
 
@@ -2221,6 +2981,606 @@
                 image: 'https://m.media-amazon.com/images/I/41TBti1tZmL._SL500_.jpg',
                 link: 'https://amzn.to/4gx7mVV',
                 timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Furniture',
+                Retailer: 'Amazon',
+                title: 'Kichler Deela 17- Pendant Light',
+                salePrice: '72.41',
+                originalPrice: '120.94',
+                dollarSavings: '48.53',
+                percentOff: '40',
+                image: 'https://m.media-amazon.com/images/I/11LgdzimJAL._SL500_.jpg',
+                link: 'https://amzn.to/3Q7BEUH',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Toys',
+                Retailer: 'Amazon',
+                title: 'McFarlane Jack Eichel NHL Figure',
+                salePrice: '27.00',
+                originalPrice: '38.40',
+                dollarSavings: '11.40',
+                percentOff: '30',
+                image: 'https://m.media-amazon.com/images/I/41zhjgIoe5L._SL500_.jpg',
+                link: 'https://amzn.to/3WRyTdY',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Equipment',
+                Retailer: 'Amazon',
+                title: 'Delta ProClean Handheld Shower',
+                salePrice: '34.71',
+                originalPrice: '124.53',
+                dollarSavings: '89.82',
+                percentOff: '72',
+                image: 'https://m.media-amazon.com/images/I/31NelOav8xL._SL500_.jpg',
+                link: 'https://amzn.to/4aTmpIl',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Equipment',
+                Retailer: 'Amazon',
+                title: 'BLACK+DECKER Electric Leaf Blower',
+                salePrice: '69.98',
+                originalPrice: '90.53',
+                dollarSavings: '20.55',
+                percentOff: '23',
+                image: 'https://m.media-amazon.com/images/I/41qVhjlSy0L._SL500_.jpg',
+                link: 'https://amzn.to/4aPKtvO',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Kids',
+                Retailer: 'Amazon',
+                title: 'Burt\'s Bees Baby Boy Jumpsuit',
+                salePrice: '8.93',
+                originalPrice: '18.36',
+                dollarSavings: '9.43',
+                percentOff: '51',
+                image: 'https://m.media-amazon.com/images/I/31CQR21vnQL._SL500_.jpg',
+                link: 'https://amzn.to/3WTE2BY',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Furniture',
+                Retailer: 'Amazon',
+                title: 'Egypt Sherrod Taupe Peel & Stick Wallpaper',
+                salePrice: '10.05',
+                originalPrice: '22.70',
+                dollarSavings: '12.65',
+                percentOff: '56',
+                image: 'https://m.media-amazon.com/images/I/31Bc-K8t2FL._SL500_.jpg',
+                link: 'https://amzn.to/3WQAArX',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Equipment',
+                Retailer: 'Amazon',
+                title: 'Plano KVD Wormfile Fishing Bag',
+                salePrice: '6.97',
+                originalPrice: '11.84',
+                dollarSavings: '4.87',
+                percentOff: '41',
+                image: 'https://m.media-amazon.com/images/I/41-BSg7WdxL._SL500_.jpg',
+                link: 'https://amzn.to/3EstDHn',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Furniture',
+                Retailer: 'Amazon',
+                title: 'FURINNO JAYA 3-Tier Bookcase',
+                salePrice: '26.06',
+                originalPrice: '37.50',
+                dollarSavings: '11.44',
+                percentOff: '31',
+                image: 'https://m.media-amazon.com/images/I/31GzAN-SHmL._SL500_.jpg',
+                link: 'https://amzn.to/415xsuC',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Kitchenware',
+                Retailer: 'Amazon',
+                title: 'Chicago Metallic Non-Stick Baking Sheet',
+                salePrice: '10.91',
+                originalPrice: '19.16',
+                dollarSavings: '8.25',
+                percentOff: '43',
+                image: 'https://m.media-amazon.com/images/I/31jtjHAdwlL._SL500_.jpg',
+                link: 'https://amzn.to/3CLooBT',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Men',
+                Retailer: 'Amazon',
+                title: 'Speedo Men\'s Swimsuit Jammer',
+                salePrice: '7.62',
+                originalPrice: '34.91',
+                dollarSavings: '27.29',
+                percentOff: '78',
+                image: 'https://m.media-amazon.com/images/I/41HoC8IM8ZL._SL500_.jpg',
+                link: 'https://amzn.to/3Qehnwo',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Furniture',
+                Retailer: 'Amazon',
+                title: 'Delta Linden Kitchen Faucet',
+                salePrice: '72.41',
+                originalPrice: '196.30',
+                dollarSavings: '123.89',
+                percentOff: '63',
+                image: 'https://m.media-amazon.com/images/I/41It819osQL._SL500_.jpg',
+                link: 'https://amzn.to/415z5sd',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Women',
+                Retailer: 'Amazon',
+                title: 'Peepers Women\'s Blue Light Glasses',
+                salePrice: '15.14',
+                originalPrice: '20.67',
+                dollarSavings: '5.53',
+                percentOff: '27',
+                image: 'https://m.media-amazon.com/images/I/31+lSQSuv4L._SL500_.jpg',
+                link: 'https://amzn.to/4gx7Fjx',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Equipment',
+                Retailer: 'Amazon',
+                title: 'SL 6378 ALS PDL S&W Holster',
+                salePrice: '16.38',
+                originalPrice: '56.27',
+                dollarSavings: '39.89',
+                percentOff: '71',
+                image: 'https://m.media-amazon.com/images/I/31o7cJiMpZL._SL500_.jpg',
+                link: 'https://amzn.to/3EwqhTw',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Art',
+                Retailer: 'Amazon',
+                title: 'Design Toscano Dragon Hatchling Ornament',
+                salePrice: '17.45',
+                originalPrice: '26.63',
+                dollarSavings: '9.18',
+                percentOff: '34',
+                image: 'https://m.media-amazon.com/images/I/51hmrtIfyjL._SL500_.jpg',
+                link: 'https://amzn.to/4jN3enJ',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Furniture',
+                Retailer: 'Amazon',
+                title: 'Dreo Tower Fan for Bedroom',
+                salePrice: '33.37',
+                originalPrice: '86.80',
+                dollarSavings: '53.43',
+                percentOff: '62',
+                image: 'https://m.media-amazon.com/images/I/31US6Zp5zEL._SL500_.jpg',
+                link: 'https://amzn.to/4gtGdDf',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Art',
+                Retailer: 'Amazon',
+                title: 'Trademark Fine Art Pacific Shores Canvas',
+                salePrice: '13.95',
+                originalPrice: '53.76',
+                dollarSavings: '39.81',
+                percentOff: '74',
+                image: 'https://m.media-amazon.com/images/I/51QDakw43JL._SL500_.jpg',
+                link: 'https://amzn.to/42PC5dE',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Groceries',
+                Retailer: 'Amazon',
+                title: 'Mixed Berry Superfood Oat Cup',
+                salePrice: '2.12',
+                originalPrice: '3.49',
+                dollarSavings: '1.37',
+                percentOff: '39',
+                image: 'https://m.media-amazon.com/images/I/51BI8yqkXdL._SL500_.jpg',
+                link: 'https://amzn.to/417mGEf',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Game',
+                Retailer: 'Amazon',
+                title: 'Barbie Project Friendship PS4 Game',
+                salePrice: '27.86',
+                originalPrice: '38.01',
+                dollarSavings: '10.15',
+                percentOff: '27',
+                image: 'https://m.media-amazon.com/images/I/51QvRGstiqL._SL500_.jpg',
+                link: 'https://amzn.to/4aZ75Ks',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Equipment',
+                Retailer: 'Amazon',
+                title: 'Weiler Knot Wire Cup Brush',
+                salePrice: '5.80',
+                originalPrice: '13.88',
+                dollarSavings: '8.08',
+                percentOff: '58',
+                image: 'https://m.media-amazon.com/images/I/51WutLdtlVL._SL500_.jpg',
+                link: 'https://amzn.to/418n05G',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Men',
+                Retailer: 'Amazon',
+                title: 'Arctix Men\'s Insulated Bib Overalls',
+                salePrice: '45.18',
+                originalPrice: '65.40',
+                dollarSavings: '20.22',
+                percentOff: '31',
+                image: 'https://m.media-amazon.com/images/I/31NmJGHBhTL._SL500_.jpg',
+                link: 'https://amzn.to/4hRRPRU',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Electronic',
+                Retailer: 'Amazon',
+                title: 'Accutime Frozen Touchscreen Smartwatch',
+                salePrice: '19.98',
+                originalPrice: '27.32',
+                dollarSavings: '7.34',
+                percentOff: '27',
+                image: 'https://m.media-amazon.com/images/I/51nguUuzh6L._SL500_.jpg',
+                link: 'https://amzn.to/4aSKkrq',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Kitchenware',
+                Retailer: 'Amazon',
+                title: 'DII Chef Stripe Kitchen Apron',
+                salePrice: '10.48',
+                originalPrice: '17.74',
+                dollarSavings: '7.26',
+                percentOff: '41',
+                image: 'https://m.media-amazon.com/images/I/41tk0CTArLL._SL500_.jpg',
+                link: 'https://amzn.to/4aVMuGW',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Equipment',
+                Retailer: 'Amazon',
+                title: 'Sunbeam USB Heating Pad',
+                salePrice: '28.85',
+                originalPrice: '42.73',
+                dollarSavings: '13.88',
+                percentOff: '32',
+                image: 'https://m.media-amazon.com/images/I/41i7pHe28HL._SL500_.jpg',
+                link: 'https://amzn.to/4180Pg0',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Furniture',
+                Retailer: 'Amazon',
+                title: 'Greendale Outdoor Bistro Seat Cushions',
+                salePrice: '6.92',
+                originalPrice: '36.20',
+                dollarSavings: '29.28',
+                percentOff: '81',
+                image: 'https://m.media-amazon.com/images/I/31OJILgvbVL._SL500_.jpg',
+                link: 'https://amzn.to/42KwsNN',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Art',
+                Retailer: 'Amazon',
+                title: 'Trademark Fine Art Grand Central NYC',
+                salePrice: '10.95',
+                originalPrice: '42.61',
+                dollarSavings: '31.66',
+                percentOff: '74',
+                image: 'https://m.media-amazon.com/images/I/51CGxmyBBOL._SL500_.jpg',
+                link: 'https://amzn.to/4gxmq6a',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Sports',
+                Retailer: 'Amazon',
+                title: 'Team Golf Clemson Tigers Head Cover',
+                salePrice: '9.50',
+                originalPrice: '27.31',
+                dollarSavings: '17.81',
+                percentOff: '65',
+                image: 'https://m.media-amazon.com/images/I/41bZDxKpQaL._SL500_.jpg',
+                link: 'https://amzn.to/418rFor',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Toys',
+                Retailer: 'Amazon',
+                title: 'Buffalo Hawaiian Food Truck Puzzle',
+                salePrice: '16.60',
+                originalPrice: '24.48',
+                dollarSavings: '7.88',
+                percentOff: '32',
+                image: 'https://m.media-amazon.com/images/I/51actb9mbBL._SL500_.jpg',
+                link: 'https://amzn.to/4hLNSxS',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Shoes',
+                Retailer: 'Amazon',
+                title: 'Ryka Women\'s Hensley Sneaker Booties',
+                salePrice: '19.97',
+                originalPrice: '58.01',
+                dollarSavings: '38.04',
+                percentOff: '66',
+                image: 'https://m.media-amazon.com/images/I/315Am+rYVnL._SL500_.jpg',
+                link: 'https://amzn.to/3ErDUmS',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Kids',
+                Retailer: 'Amazon',
+                title: 'Hudson Baby Flannel Washcloths',
+                salePrice: '7.40',
+                originalPrice: '11.80',
+                dollarSavings: '4.40',
+                percentOff: '37',
+                image: 'https://m.media-amazon.com/images/I/41L4-uwh5SL._SL500_.jpg',
+                link: 'https://amzn.to/42N180P',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Toys',
+                Retailer: 'Amazon',
+                title: 'Magic Mixies Interactive Genie Lamp',
+                salePrice: '26.20',
+                originalPrice: '37.72',
+                dollarSavings: '11.52',
+                percentOff: '31',
+                image: 'https://m.media-amazon.com/images/I/41wEXfGn+0L._SL500_.jpg',
+                link: 'https://amzn.to/4hPVbVj',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Home Decor',
+                Retailer: 'Amazon',
+                title: 'National Tree Pre-Lit Christmas Tree',
+                salePrice: '69.89',
+                originalPrice: '179.76',
+                dollarSavings: '109.87',
+                percentOff: '61',
+                image: 'https://m.media-amazon.com/images/I/51YNTWmx8ZL._SL500_.jpg',
+                link: 'https://amzn.to/4aQd6sM',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Furniture',
+                Retailer: 'Amazon',
+                title: 'Delta Wall Supply Elbow Mount',
+                salePrice: '16.14',
+                originalPrice: '47.97',
+                dollarSavings: '31.83',
+                percentOff: '66',
+                image: 'https://m.media-amazon.com/images/I/41rrOB-KqKL._SL500_.jpg',
+                link: 'https://amzn.to/42RnqP9',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Equipment',
+                Retailer: 'Amazon',
+                title: 'Coleman Camping Tent with Screen Room',
+                salePrice: '119.99',
+                originalPrice: '151.36',
+                dollarSavings: '31.37',
+                percentOff: '21',
+                image: 'https://m.media-amazon.com/images/I/41VXJTCT4AL._SL500_.jpg',
+                link: 'https://amzn.to/42T4Pm1',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Kitchenware',
+                Retailer: 'Amazon',
+                title: 'CAC China American White Plates',
+                salePrice: '26.92',
+                originalPrice: '83.52',
+                dollarSavings: '56.60',
+                percentOff: '68',
+                image: 'https://m.media-amazon.com/images/I/31SfUtFB4cL._SL500_.jpg',
+                link: 'https://amzn.to/4gxmumq',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Kids',
+                Retailer: 'Amazon',
+                title: 'MAM Perfect Baby Pacifier',
+                salePrice: '6.49',
+                originalPrice: '10.18',
+                dollarSavings: '3.69',
+                percentOff: '36',
+                image: 'https://m.media-amazon.com/images/I/31mfdQxaIcL._SL500_.jpg',
+                link: 'https://amzn.to/3EsjGtj',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Art',
+                Retailer: 'Amazon',
+                title: 'John Gould \'Pastel Parrots\' Canvas',
+                salePrice: '12.95',
+                originalPrice: '49.17',
+                dollarSavings: '36.22',
+                percentOff: '74',
+                image: 'https://m.media-amazon.com/images/I/41aNKxsgmOL._SL500_.jpg',
+                link: 'https://amzn.to/4hu7rv1',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Furniture',
+                Retailer: 'Amazon',
+                title: 'SAFAVIEH Lyndhurst Area Rug Runner',
+                salePrice: '91.83',
+                originalPrice: '251.74',
+                dollarSavings: '159.91',
+                percentOff: '64',
+                image: 'https://m.media-amazon.com/images/I/61nJBvg7fiS._SL500_.jpg',
+                link: 'https://amzn.to/4aTl2cK',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Game',
+                Retailer: 'Amazon',
+                title: 'Sit Down Games: Open Season',
+                salePrice: '15.33',
+                originalPrice: '23.34',
+                dollarSavings: '8.01',
+                percentOff: '34',
+                image: 'https://m.media-amazon.com/images/I/51Jiq6JWU2L._SL500_.jpg',
+                link: 'https://amzn.to/42OU9Vb',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Furniture',
+                Retailer: 'Amazon',
+                title: 'SAFAVIEH Micro-Loop Area Rug',
+                salePrice: '118.80',
+                originalPrice: '324.97',
+                dollarSavings: '206.17',
+                percentOff: '63',
+                image: 'https://m.media-amazon.com/images/I/61RiM5VnxOL._SL500_.jpg',
+                link: 'https://amzn.to/4gyt5Nn',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Furniture',
+                Retailer: 'Amazon',
+                title: 'Hearth & Harbor Christmas Storage Bag',
+                salePrice: '22.98',
+                originalPrice: '32.04',
+                dollarSavings: '9.06',
+                percentOff: '28',
+                image: 'https://m.media-amazon.com/images/I/51xF9nKpvIL._SL500_.jpg',
+                link: 'https://amzn.to/4gxAxYX',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Furniture',
+                Retailer: 'Amazon',
+                title: 'SAFAVIEH Metro Wool Area Rug',
+                salePrice: '144.95',
+                originalPrice: '395.82',
+                dollarSavings: '250.87',
+                percentOff: '63',
+                image: 'https://m.media-amazon.com/images/I/61CqtsagmaL._SL500_.jpg',
+                link: 'https://amzn.to/42OtKqH',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Equipment',
+                Retailer: 'Amazon',
+                title: 'TRQ Rear Power Window Regulator',
+                salePrice: '9.02',
+                originalPrice: '73.67',
+                dollarSavings: '64.65',
+                percentOff: '88',
+                image: 'https://m.media-amazon.com/images/I/41m3R4yAG4L._SL500_.jpg',
+                link: 'https://amzn.to/3CLlTzB',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Art',
+                Retailer: 'Amazon',
+                title: 'Michael Tompsett Chattanooga Canvas Art',
+                salePrice: '26.95',
+                originalPrice: '54.18',
+                dollarSavings: '27.23',
+                percentOff: '50',
+                image: 'https://m.media-amazon.com/images/I/41yEzdVdYOL._SL500_.jpg',
+                link: 'https://amzn.to/4hRBeO3',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Toys',
+                Retailer: 'Amazon',
+                title: 'Squishmallows Disney Genie Plush',
+                salePrice: '13.32',
+                originalPrice: '19.43',
+                dollarSavings: '6.11',
+                percentOff: '31',
+                image: 'https://m.media-amazon.com/images/I/31xgI4fgTHL._SL500_.jpg',
+                link: 'https://amzn.to/3WOCSrG',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Kids',
+                Retailer: 'Amazon',
+                title: 'Amazon Essentials Disney Pajama Sets',
+                salePrice: '13.98',
+                originalPrice: '20.92',
+                dollarSavings: '6.94',
+                percentOff: '33',
+                image: 'https://m.media-amazon.com/images/I/41MrF8LsTXL._SL500_.jpg',
+                link: 'https://amzn.to/3Euidml',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Equipment',
+                Retailer: 'Amazon',
+                title: 'Bestway Inflatable Pool Set',
+                salePrice: '42.30',
+                originalPrice: '126.99',
+                dollarSavings: '84.69',
+                percentOff: '67',
+                image: 'https://m.media-amazon.com/images/I/41bxpDuQfkL._SL500_.jpg',
+                link: 'https://amzn.to/4aUYOqY',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Kids',
+                Retailer: 'Amazon',
+                title: 'Children\'s Place Girls Graphic T-Shirts',
+                salePrice: '9.79',
+                originalPrice: '17.41',
+                dollarSavings: '7.62',
+                percentOff: '44',
+                image: 'https://m.media-amazon.com/images/I/41ljMdKdaHL._SL500_.jpg',
+                link: 'https://amzn.to/3WUpeDb',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Furniture',
+                Retailer: 'Amazon',
+                title: 'SAFAVIEH Micro-Loop Green Area Rug',
+                salePrice: '119.67',
+                originalPrice: '325.00',
+                dollarSavings: '205.33',
+                percentOff: '63',
+                image: 'https://m.media-amazon.com/images/I/51Zn6WoK-FL._SL500_.jpg',
+                link: 'https://amzn.to/4hSzFiR',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Kids',
+                Retailer: 'Amazon',
+                title: 'Children\'s Place School Days T-Shirts',
+                salePrice: '6.91',
+                originalPrice: '13.76',
+                dollarSavings: '6.85',
+                percentOff: '50',
+                image: 'https://m.media-amazon.com/images/I/41a0-4O+kUL._SL500_.jpg',
+                link: 'https://amzn.to/3EvWNFv',
+                timestamp: new Date().toISOString()
+            },
+            {
+                Category: 'Art',
+                Retailer: 'Amazon',
+                title: 'Trademark Fine Art Lily of The Valley',
+                salePrice: '13.95',
+                originalPrice: '52.09',
+                dollarSavings: '38.14',
+                percentOff: '73',
+                image: 'https://m.media-amazon.com/images/I/41F6MprCe2L._SL500_.jpg',
+                link: 'https://amzn.to/4jTiBLw',
+                timestamp: new Date().toISOString()
             }
         ];
 
@@ -2262,17 +3622,137 @@
             <option value="Furniture">Furniture</option>
             <option value="Beauty care">Beauty Care</option>
             <option value="Groceries">Groceries</option>
+            <option value="Kitchenware">Kitchenware</option>
+            <option value="Bedding">Bedding</option>
+            <option value="Toys">Toys</option>
             <option value="Equipment">Equipment</option>
-            <option value="Art">Art</option>
-            <option value="Medical">Medical</option>
+            <option value="Game">Game</option>
+            <option value="Office Supplies">Office Supplies</option>
+            <option value="Sports">Sports</option>
+            <option value="Home Decor">Home Decor</option>
+            <option value="Game">Game</option>
         `;
 
+        // Update the filtering functions
         function filterByCategory(category) {
-            const categorySelect = document.querySelector('.category-select');
-            categorySelect.value = category;
-            categorySelect.dispatchEvent(new Event('change'));
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            // Get the container and clear it
+            const container = document.querySelector('.deals-container');
+            container.innerHTML = '';
+            
+            // Show loading animation
+            const preloader = document.querySelector('.preloader');
+            preloader.style.display = 'flex';
+            
+            // Filter the deals based on category
+            let filteredDeals;
+            if (category === 'Electronic') {
+                filteredDeals = allDeals.filter(deal => deal.Category === 'Electronic');
+            } else if (category === 'Kitchenware') {
+                filteredDeals = allDeals.filter(deal => 
+                    deal.Category === 'Kitchenware' || deal.Category === 'Furniture'
+                );
+            } else if (category === 'Beauty care') {
+                filteredDeals = allDeals.filter(deal => deal.Category === 'Beauty care');
+            }
+            
+            setTimeout(() => {
+                // Hide preloader
+                preloader.style.display = 'none';
+                
+                // Render the filtered deals
+                if (filteredDeals && filteredDeals.length > 0) {
+                    renderDeals(filteredDeals, container);
+                } else {
+                    container.innerHTML = '<div class="no-deals">No deals found in this category</div>';
+                }
+                
+                // Update the category select
+                const categorySelect = document.querySelector('.category-select');
+                categorySelect.value = category;
+                
+                // Smooth scroll to top
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }, 500);
         }
+
+        function showFashion() {
+            // Get the container and clear it
+            const container = document.querySelector('.deals-container');
+            container.innerHTML = '';
+            
+            // Show loading animation
+            const preloader = document.querySelector('.preloader');
+            preloader.style.display = 'flex';
+            
+            // Filter fashion deals (Men and Women)
+            const fashionDeals = allDeals.filter(deal => 
+                deal.Category === 'Men' || deal.Category === 'Women'
+            );
+            
+            setTimeout(() => {
+                // Hide preloader
+                preloader.style.display = 'none';
+                
+                // Render the filtered deals
+                if (fashionDeals && fashionDeals.length > 0) {
+                    renderDeals(fashionDeals, container);
+                } else {
+                    container.innerHTML = '<div class="no-deals">No fashion deals available</div>';
+                }
+                
+                // Update the category select
+                const categorySelect = document.querySelector('.category-select');
+                categorySelect.value = '';
+                
+                // Smooth scroll to top
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }, 500);
+        }
+
+        // Add some basic styling for no deals message
+        const style = document.createElement('style');
+        style.textContent = `
+            .no-deals {
+                text-align: center;
+                padding: 2rem;
+                font-size: 1.2rem;
+                color: #666;
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Add event listener for category select
+        document.querySelector('.category-select').addEventListener('change', function() {
+            const selectedCategory = this.value;
+            
+            // Get the container and clear it
+            const container = document.querySelector('.deals-container');
+            container.innerHTML = '';
+            
+            // Show loading animation
+            const preloader = document.querySelector('.preloader');
+            preloader.style.display = 'flex';
+            
+            // Filter the deals
+            const filteredDeals = selectedCategory 
+                ? allDeals.filter(deal => deal.Category === selectedCategory)
+                : allDeals;
+            
+            setTimeout(() => {
+                // Hide preloader
+                preloader.style.display = 'none';
+                
+                // Render the filtered deals
+                if (filteredDeals && filteredDeals.length > 0) {
+                    renderDeals(filteredDeals, container);
+                } else {
+                    container.innerHTML = '<div class="no-deals">No deals found in this category</div>';
+                }
+                
+                // Smooth scroll to top
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }, 500);
+        });
     </script>
 </body>
 </html>
